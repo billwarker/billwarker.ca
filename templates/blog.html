@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="blog-header">
+    {% if active_year and active_month %}
+        <h1>Archive: {{ active_year }}-{{ "%02d"|format(active_month) }}</h1>
+
+    {% elif active_year %}
+        <h1>Archive: {{ active_year }}</h1>
+
+    {% else %}
+        <h1>All Posts</h1>
+    {% endif %}
+</div>
+
+    {% if posts %}
+        {% for post in posts %}
+        <div class="post-item">
+            <h2><a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a></h2>
+            <div class="post-meta">{{ post.date }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No posts found.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title or "My Blog" }}</title>
+
+    <!-- Open Sans font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <script>
+    function toggleArchive(year) {
+        const el = document.getElementById("archive-" + year);
+        el.style.display = (el.style.display === "block") ? "none" : "block";
+    }
+    </script>
+
+
+    <header class="site-header">
+        <nav class="nav">
+            <a class="nav-item" href="{{ url_for('about') }}">About</a>
+            <a class="nav-item" href="{{ url_for('blog') }}">Blog</a>
+            <a class="nav-item" href="{{ url_for('static', filename='resume.pdf') }}" target="_blank">Resume</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="main-content">
+            {% block content %}{% endblock %}
+        </div>
+
+        {% if not hide_sidebar %}
+        <div class="sidebar">
+        <!-- TAGS -->
+        <div class="sidebar-section">
+            <h3>Tags</h3>
+            <div class="tag-cloud">
+                {% for tag in all_tags %}
+                    <a href="{{ url_for('tag_page', tag=tag) }}">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <!-- ARCHIVE -->
+        <div class="sidebar-section">
+            <h3>Archive</h3>
+            <ul class="archive-list">
+
+                {% for year, months in archive.items() %}
+                <li class="archive-year">
+
+                    <!-- If the user is currently viewing this year's archive -->
+                    {% if active_year == year %}
+                        <span class="year-label">{{ year }} ({{ months.total }})</span>
+                        <a class="view-posts" href="{{ url_for('blog_by_year', year=year) }}">
+                            (View Posts)
+                        </a>
+
+                        <ul class="month-list">
+                            {% for month, count in months.months.items() %}
+                            <li>
+                                <a href="{{ url_for('blog_by_month', year=year, month=month) }}">
+                                    {{ year }}-{{ "%02d"|format(month) }} ({{ count }})
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+
+                    {% else %}
+                        <!-- Not active: year collapses -->
+                        <a class="year-toggle" href="{{ url_for('blog_by_year', year=year) }}">
+                            {{ year }} ({{ months.total }})
+                        </a>
+                    {% endif %}
+
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
+
