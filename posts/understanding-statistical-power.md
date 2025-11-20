@@ -104,7 +104,7 @@ plt.show()
 ```
 
 
-![png](static/images/understanding-statistical-power/Understanding Statistical Power_3_0.png)
+![png](/static/images/understanding-statistical-power/Understanding Statistical Power_3_0.png)
 
 
 Given this sampling distribution, we determine critical lower and upper values at which we reject $H_0$ based on our chosen significance ($\alpha = 0.05$) and the decision that this will be a two-sided test:
@@ -178,7 +178,7 @@ plt.show()
 ```
 
 
-![png](static/images/understanding-statistical-power/Understanding Statistical Power_7_0.png)
+![png](/static/images/understanding-statistical-power/Understanding Statistical Power_7_0.png)
 
 
 The red areas that aren't between the two rejection lines represent the probability of a Type I error, which are the values for sample mean $\bar{X}$ whose probabilities sum to $\alpha$ = 0.05. If $\bar{X}$ is in these regions, we reject $H_0$ with a 5% probability of making a type I error. The green area represents the chosen range where $\bar{X}$ supports the null hypothesis, so we do not reject $h_0$.
@@ -230,7 +230,7 @@ plt.show()
 ```
 
 
-![png](static/images/understanding-statistical-power/Understanding Statistical Power_9_0.png)
+![png](/static/images/understanding-statistical-power/Understanding Statistical Power_9_0.png)
 
 
 If the true mean is 94, then the alternative hypothesis $H_A$ is true. The probability of a type II error, $\beta$, is the red shaded area: this is the overlap between the alternate hypothesis' distribution has with the "do not reject region" of the null hypothesis.
@@ -340,7 +340,7 @@ plt.legend()
 
 
 
-![png](static/images/understanding-statistical-power/Understanding Statistical Power_19_1.png)
+![png](/static/images/understanding-statistical-power/Understanding Statistical Power_19_1.png)
 
 
 Calculating the Power for this test by obtaining $\beta$ from $H_A$'s distribution variable:
