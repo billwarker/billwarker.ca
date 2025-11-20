@@ -7,7 +7,14 @@
     {% for post in posts %}
         <div class="post-item">
             <h2><a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a></h2>
-            <div class="post-meta">{{ post.date }}</div>
+
+            <div class="tag-cloud">
+                {% for tag in post.tags %}
+                <a href="{{ url_for('tag_page', tag=tag) }}">{{ tag }}</a>
+                {% endfor %}
+            </div>
+
+            <h3>{{ post.date }}</h3>
         </div>
     {% endfor %}
 {% else %}

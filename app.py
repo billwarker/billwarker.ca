@@ -2,29 +2,39 @@ from flask import Flask, render_template
 import markdown
 import frontmatter
 import os
+import shutil
+
 from collections import defaultdict
 from datetime import datetime
 
-app = Flask(__name__)
+from markdown.extensions.codehilite import CodeHiliteExtension
+from markdown.extensions.fenced_code import FencedCodeExtension
 
-POSTS_DIR = "posts"
+
+app = Flask(__name__)
 
 # Helper Functions
 
+POSTS_DIR = "posts"
+
 def load_posts():
     posts = []
-    for filename in os.listdir(POSTS_DIR):
-        if filename.endswith(".md"):
-            path = os.path.join(POSTS_DIR, filename)
-            post = frontmatter.load(path)
-            slug = filename.replace(".md", "")
-            posts.append({
-                "slug": slug,
-                "title": post.get("title", slug),
-                "date": post.get("date", ""),
-                "tags": post.get("tags", []),
-                "content": markdown.markdown(post.content)
-            })
+    for root, dirs, files in os.walk(POSTS_DIR):
+        for filename in files:
+            if filename.endswith(".md"):
+
+                filepath = os.path.join(root, filename)
+
+                post = frontmatter.load(filepath)
+                rel_path = os.path.relpath(filepath, POSTS_DIR)  # e.g. "tech/first-post.md"
+                slug = filename.replace(".md", "")
+                posts.append({
+                    "slug": slug,
+                    "title": post.get("title", slug),
+                    "date": post.get("date", ""),
+                    "tags": post.get("tags", []),
+                    "content": markdown.markdown(post.content)
+                })
         
     posts.sort(key=lambda x: x['date'], reverse=True)
     return posts
@@ -61,6 +71,16 @@ def build_archive(posts):
         }
 
     return dict(sorted(clean.items(), reverse=True))
+
+def render_markdown(md_text):
+    return markdown.markdown(
+        md_text,
+        # extensions=[
+        #     FencedCodeExtension(),                    # ``` code fencing
+        #     CodeHiliteExtension(noclasses=False),  # Add <code class="language-...">
+        # ]
+        extensions=["fenced_code", "codehilite"]
+    )
         
 
 # Flask App Routes
@@ -93,7 +113,7 @@ def post(slug):
         title = post.get("title", slug),
         date =  post.get("date", ""),
         tags =  post.get("tags", []),
-        content = markdown.markdown(post.content),
+        content = render_markdown(post.content),
         all_tags=get_all_tags(),
         posts=posts,
         archive=build_archive(posts)

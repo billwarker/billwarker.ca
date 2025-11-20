@@ -9,6 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Markdown Cell Highlighting -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='pygments.css') }}">
+
+
+    <!--- Markdown Rendering -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" rel="stylesheet" />
+
+    <!--- MathJax Rendering -->
+    <script>
+    window.MathJax = {
+    tex: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+    },
+    svg: { fontCache: "global" }
+    };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
 </head>
 
 <body>
@@ -18,6 +39,11 @@
         el.style.display = (el.style.display === "block") ? "none" : "block";
     }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+
 
 
     <header class="site-header">
@@ -59,7 +85,7 @@
                     {% if active_year == year %}
                         <span class="year-label">{{ year }} ({{ months.total }})</span>
                         <a class="view-posts" href="{{ url_for('blog_by_year', year=year) }}">
-                            (View Posts)
+                            (View Year)
                         </a>
 
                         <ul class="month-list">

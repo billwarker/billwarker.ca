@@ -4,13 +4,16 @@
 
 <div class="post-content">
     <h1>{{ title }}</h1>
-    <div class="post-meta">{{ date }}</div>
 
     <div class="tag-cloud">
         {% for tag in tags %}
             <a href="#">{{ tag }}</a>
         {% endfor %}
     </div>
+
+    <h3>{{ date }}</h3>
+
+    <hr class="post-divider">
 
     <div>
         {{ content | safe }}
