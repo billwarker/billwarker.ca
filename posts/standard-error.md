@@ -2,7 +2,7 @@
 title: "The Standard Error of the Mean"
 author: "Will Barker"
 date: "2020-07-12"
-tags: ["stats"]
+tags: ["stats", "notes"]
 ---
 
 ## The Standard Error of the Mean
@@ -57,7 +57,7 @@ print(f'The true mean of the population is {mean} and its standard deviation is 
 ```
 
 
-![png](static/images/standard-error/output_3_0.png)
+![png](/static/images/standard-error/output_3_0.png)
 
 
     The true mean of the population is 1.5957691216057308 and its standard deviation is 0.6734396116428514
@@ -93,7 +93,7 @@ sample_dist.hist(bins=30) # visualizing our sample distribution of the sample me
 
 
 
-![png](static/images/standard-error/output_5_1.png)
+![png](/static/images/standard-error/output_5_1.png)
 
 
 
