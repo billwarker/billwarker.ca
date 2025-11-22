@@ -79,7 +79,7 @@ def render_markdown(md_text):
         #     FencedCodeExtension(),                    # ``` code fencing
         #     CodeHiliteExtension(noclasses=False),  # Add <code class="language-...">
         # ]
-        extensions=["fenced_code", "codehilite"]
+        extensions=["fenced_code", "codehilite", "tables"]
     )
         
 
