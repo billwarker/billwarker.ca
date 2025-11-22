@@ -156,3 +156,4 @@ Do I feel like continuing to develop code in this manner or leaning more on AI t
 
 Is Vibe Coding going to be the way of the future? Mixed bag here, because I can certainly see the vision of it "10x"ing developer productivity (i.e. the corporate wet dream). It's great for automating away a lot of the actual mundane work of gluing technologies together, doing stuff that's already been done, etc. And honestly, if it does continue to improve at doing stuff like that, I see why a bunch of people could get laid off. My prior experience took me a long way here, but I don't actually *feel* like I did that much...
 
+If you're curious to see what all the AI-written code looks like, you can view it [here](https://github.com/billwarker/billwarker.ca). It surely could be improved in many ways, but hey, it works!
