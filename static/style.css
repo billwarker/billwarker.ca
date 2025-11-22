@@ -178,3 +178,24 @@ pre code {
     border: none;
     border-top: 1px solid #333;
 }
+
+.about-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.about-text {
+    flex: 2;
+}
+
+.about-image {
+    flex: 1;
+    text-align: right;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}

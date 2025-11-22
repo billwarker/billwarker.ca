@@ -1,18 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>About</h1>
-<p>
-Hey there, I'm Will, thanks for visiting my website.
 
-This site is meant to be a collection of my notes, thoughts, and general writing. Hope you enjoy.
+<div class="about-layout">
 
-If you'd like to reach out to me, feel free to do so at:
+    <!-- LEFT COLUMN: TEXT -->
+    <div class="about-text">
+        <h1>About</h1>
+        <p>
+            Hey there, I'm Will, thanks for visiting my website.
+            <br><br>
+            This site is meant to be a collection of my notes, thoughts, and general writing. 
+            Hope you enjoy.
+            <br><br>
+            If you'd like to reach out to me, feel free to do so at:<br>
+            <strong>williamgeorge.barker@gmail.com</strong>
+        </p>
+    </div>
 
-williamgeorge.barker@gmail.com
+    <!-- RIGHT COLUMN: IMAGE -->
+    <div class="about-image">
+        <img src="{{ url_for('static', filename='images/me.png') }}" alt="Will's photo">
+    </div>
 
+</div>
 
-
-
-</p>
 {% endblock %}
