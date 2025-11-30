@@ -1,14 +1,14 @@
 ---
-title: "Hello World, or how I built this blog in 4 days with AI"
+title: "Hello World (or alternatively, how I actually 'Vibe Coded' this blog in 4 days with AI)"
 date: "2025-11-21"
 tags: ["intro", "ai"]
 ---
 
-Welcome to my new blog! I've taken a few cracks at making a blog in the past, but some recent inspiration from another blog I saw online made me want to give it another go. A simple static website, simple features, just a way to share some writing and professional links. This northstar vision, coupled with general Python + Cloud knowledge, and a *helluva* lot of code written by ChatGPT, has gotten me this site in a very short time.
+Welcome to my new blog! I've taken a few cracks at making a blog in the past, but some recent inspiration has made me want to give it another go. A simple static website, simple features, just a way to share some writing and professional links. This northstar vision, coupled with my experience in Python programming and Google Cloud Platform (GCP) knowledge, and a... *helluva* lot of code written by ChatGPT, has gotten me this personal site in a very short time. This was my first time successfully "vibe coding" on an end-to-end project, so read on for my general thoughts on the entire process.
 
 ## The Game Plan
 
-I already knew the high level steps for creating my own website with Python, so before I started running code I made this short list of bullet points (and then never looked at it again until now lol):
+I already knew the high level steps for creating a website with Python and the Flask package, so before I started any coding I made a short list of milestones (and then never looked at it again until now):
 
 ```
 Outcomes:
@@ -21,15 +21,15 @@ Outcomes:
 - Code Repo on Github, Hosted on GCP, cost controlled
 ```
 
-The first point, getting the domain name, was relatively simple. Asked ChatGPT where I could buy one, it suggested Cloudflare, OK I'm familiar with that, seems reputable/widely used (even though it just had a major outage in the last week), I make an account, buy this .ca domain for $30 on a two year plan, boom easy done.
+Getting the domain name was relatively simple. I asked ChatGPT where I could buy one and it suggested Cloudflare. OK, I'm familiar with that, plenty of big websites run on it (even though it just had a major outage in the last week). I make an account, buy this .ca domain ($30 on a two year plan), boom easy done. Then I began the Python coding.
 
-The only things I haven't done yet are the mailing list and the analytics tracking, but everything else has been accomplished and is enough to get this blog up and running.
+The only things I haven't done yet are the mailing list and the analytics tracking, but everything else has been accomplished at the time of writing. More than enough to get this blog up and running online.
 
-I think that if you've got a high level understanding of what you need to do, you understand the right steps, you can guide AI to build you what you want (atleast in relatively simple cases like this one). If you don't know the steps, maybe you could have the AI teach you and then take it from there, but you are essentially then getting a crash course and won't have enough prior context to understand why things are working.
+From a planning POV, I think that if you've got a high level understanding of what you need to do, you understand the right steps, you can guide AI towards what you want to build (atleast in relatively projects like this one). If you don't know the general steps beforehand, maybe you can still have the AI teach you and then take things from there, but then you're essentially getting a crash course and won't have enough prior knowledge to truly understand when/why things don't work. You're flying blind, letting AI fully take the wheel.
 
 ## 95% of code taken straight from ChatGPT
 
-I don't think I'm necessarily proud of this fact, honestly I'm not entirely sure how I feel about it yet, but it's true. Ignoring the markdown code in my project (i.e. the text written in the blog posts), here's how many lines of code were required to get this blog up and running:
+I don't think I'm necessarily proud of this fact (honestly not entirely sure how I feel about it yet) but it's true. Ignoring the markdown code in my project (i.e. the text written in the blog posts), here's how many lines were required to get this blog up and running:
 
 <table border="1" cellspacing="0" cellpadding="4">
   <tr>
@@ -98,9 +98,9 @@ I don't think I'm necessarily proud of this fact, honestly I'm not entirely sure
   </tr>
 </table>
 
-(used AI to help me make the rendering for this table too btw)
+I used ChatGPT to help me make all of the markdown rendering for this table too, by the way.
 
-Out of those 724 lines, I'm honestly confident that I wrote less than 30 lines myself (~4%). I definitely had to tweak some of the lines that ChatGPT spat out at me, and I definitely did all the copying and pasting, but I wrote very little. Instead, I gave prompts like the following:
+Out of the total 724 lines I'm estimating that I wrote less than 30 of them myself (less than 5%). I definitely had to tweak some of the code that ChatGPT spat out at me, and I definitely did all the copying and pasting (wasn't working with an integrated development environment). But honestly I wrote very little. Instead, I mainly gave ChatGPT prompts like the following:
 
 - *OK I have a domain name bought. help me create a flask website for a blog at blog.billwarker.ca*
 
@@ -129,31 +129,29 @@ expanded Looks like this:
     2025-11 (2)
 ```
 
-Over the course of four evenings, about 2-3 hour long sessions (usually until I hit my cap of ChatGPT Free Plan limit on requests for the day), I copied and pasted and debugged until I got the site running the way I wanted on my local machine. 
+Over the course of four evenings while I was on a nice vacation with my family in Berlin, in 2-3 hour long sessions (usually until I hit my cap of ChatGPT Free Plan limit on requests for the day), I prompted and copied and pasted and debugged until I got the site running the way I wanted on my local machine. "Vibe coded" my way through.
 
 ## Deploying it on the Cloud and CI/CD
 
-At this point in the process, my experience with the code-writing-adjacent aspects of software engineering took over and I didn't really have to lean on ChatGPT much to:
+At this point in the process, my experience with GCP took over and I didn't really have to lean on ChatGPT much to:
 
 - Create a virtual environment in Python for the project and do package management stuff (i.e. requirements.txt file)
-- Create a repo in Github and push my local code to that
-- Create a webhook to that repo in GCP's Cloud Build and have it stream builds in
-- Create a Cloud Run app on top of the Cloud Build containers (although I did have ChatGPT create the Dockerfile I used)
+- Create a repository in Github and push my local code to that
+- Create a webhook to that repo in the GCP Cloud Console, turning on Cloud Build and have it stream builds from my Github Repo
+- Create a Cloud Run app on top of the Cloud Build containers (although I did have ChatGPT help create the Dockerfile I used)
 
-ChatGPT was still definitely helpful for general consulting here - it helped me understand whether I needed a load balancer for the website, how to make sure I don't get killed by any unexpected costs on GCP, and how web traffic would be served with the infrastructe I had set up. Again, a passing knowledge of web development was enough for me to get things done, and I think it also really helps that the whole point of GCP's product suite (and cloud development in general) is to abstract away a lot of the finer details.
+ChatGPT was definitely still helpful for general consulting here, helping me understand whether or not I needed a load balancer for the website, how to make sure I don't get myself slapped with any unexpected costs by using GCP, and how much web traffic I could expect to reasonably serve with the amount of compute I allowed for the project in Cloud Run. Again, my passing knowledge of web development was enough for me to get things done, but I also think it really helped that the whole point of GCP's product suite (and cloud development in general) is to abstract away a lot of the finer details anyways.
 
-## Thoughts about AI and the whole "Vibe Coding" process
+## Thoughts about Vibe Coding and reflecting on the entire process
 
-I "Vibe Coded" my way through almost this entire project: telling ChatGPT what I wanted in plain langauge, plugging the resulting code into my development environment, having it debug its own errors (with my guidance), and rinsing-repeating this whole process until it got me where I wanted to go.
+I "Vibe Coded" my way through most of the coding for this entire project: telling ChatGPT what I wanted in plain English, plugging the code it spat out into my development environment, asking it to help me debug all the errors. Rinse and repeat until it got me to where I wanted to go.
 
-A huge amount of leverage is now available for those fluent enough in technology to describe what they want to AI/Agents/LLMs. I definitely feel a bit dumber for it - although I can say that I understand the code written by ChatGPT after seeing and integrating it myself, it definitely would've taken me way longer to write way shittier code. And at this point, for smaller projects like this one, why would I even bother?
+I think Vibe Coding definitely offers a huge amount of leverage to those fluent enough in technology and software fields to write code quickly. I definitely feel a bit dumber for it though, not taking the time to slowly produce the logic myself as I would've on any other project. I understand the code that ChatGPT gave me and am thankful that I didn't have to go through all of the typing to produce it myself after seeing and integrating it myself - it definitely would've taken me way longer to write code that was probably a bit worse (at least without all of the best practices synthesized through the LLM).
 
-I started the project thinking that OK, maybe I'll see the code that it spits out and type it into the editor myself so I can slowly follow along with the logic, learn the patterns its suggesting, and get the "muscle memory" of writing the code myself. Copying other people's code fullstop was how I originally learned to program years ago, anyways. That lasted maybe 10 minutes before I realized that I already have a job, have nothing to prove doing this for myself, and it's slow AF and boring. Vibe Coding lets me move sooo much faster. You still have to bang your head against problems that come up and figure out what's happening overall, but that process is sped up so much with AI writing and debugging the code for you that you stay in the creative/building zone for much more of the development time overall.
+Would I be deeply concerned if this is how mission critical software for banks, hospitals, transportation, etc was being produced? Of course, but I also understand that there are typically many prior established checks and balances (i.e. testing, security) that are a part of deploying important code like that anyways.
 
-Would I be deeply concerned if critical software for banks, hospitals, transportation was being Vibe Coded with AI? Of course, but I also understand that there are already so many more checks and balances (i.e. testing) that are a part of deploying important code like that anyways.
+Do I feel like personally continuing to develop code in this manner, or leaning more on AI in general, will atrophy my own thinking and tech skills? I see the risk - AI can be great for generalists with a shallow understanding of many things, but I think that a lot of the "deep thinking" that comes from codin yourself, the work that **builds your actual experience and intuition, is completely skipped**. You could definitely end up using AI as a crutch to your detriment.
 
-Do I feel like continuing to develop code in this manner or leaning more on AI to write code will make be a better programmer over time? Probably not - I can see it being great for generalists to cover a lot of ground and be very useful, but I think a lot of the "deep thinking" part of coding and problem solving that actually makes you better/learn is completely skipped. It's definitely going to be used as a crutch.
+Is Vibe Coding going to be the way of the future? Not sure; I can also see the vision of it "10X"ing developer productivity and allowing teams to move very fast. It's great for automating away the tedium of writing code and handling repetitive tasks. It's great for spitting out formatting. Honestly, if AI continues to improve at doing more stuff like that, I can see it being pretty great. Just use with caution. But at least in this project, ChatGPT took me a looooong way here - I don't actually *feel* like I did that much...
 
-Is Vibe Coding going to be the way of the future? Mixed bag here, because I can certainly see the vision of it "10x"ing developer productivity (i.e. the corporate wet dream). It's great for automating away a lot of the actual mundane work of gluing technologies together, doing stuff that's already been done, etc. And honestly, if it does continue to improve at doing stuff like that, I see why a bunch of people could get laid off. My prior experience took me a long way here, but I don't actually *feel* like I did that much...
-
-If you're curious to see what all the AI-written code looks like, you can view it [here](https://github.com/billwarker/billwarker.ca). It surely could be improved in many ways, but hey, it works!
+If you're curious to see what the code looks like, you can view it [here](https://github.com/billwarker/billwarker.ca). I'm sure it could be improved in many ways, but hey, it works!
