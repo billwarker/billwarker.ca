@@ -30,6 +30,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
+    <script defer src="http://35.231.119.126:3000/script.js" data-website-id="23025308-a948-43df-9043-978577564071"></script>
+
 </head>
 
 <body>
@@ -50,6 +52,7 @@
         <nav class="nav">
             <a class="nav-item" href="{{ url_for('about') }}">About</a>
             <a class="nav-item" href="{{ url_for('blog') }}">Blog</a>
+            <a class="nav-item" href="{{ url_for('projects') }}">Projects</a>
             <a class="nav-item" href="{{ url_for('static', filename='resume.pdf') }}" target="_blank">Resume</a>
         </nav>
     </header>
@@ -112,8 +115,60 @@
         </div>
         {% endif %}
 
+        </div>
+
     </div>
+
+    <footer id="site-footer">
+    <p>&copy; {{ current_year }}. All content on this site reflects my own thoughts as a private citizen and no one else.</p>
+    </footer>
+
 </body>
 
-</html>
+{% if cookie_consent != "yes" %}
+<div id="cookie-banner">
+    <span>My website uses cookies for the purpose of web analytics. You choose if you want to be tracked (you won't be by default):</span>
+    <div class="cookie-buttons">
+        <button id="cookie-accept">Accept</button>
+        <button id="cookie-decline">Decline</button>
+    </div>
+</div>
+{% endif %}
 
+<!-- JS -->
+<script>
+// Accept button
+const acceptBtn = document.getElementById("cookie-accept");
+if (acceptBtn) {
+    acceptBtn.addEventListener("click", () => {
+        fetch("/accept-cookies").then(() => {
+            const banner = document.getElementById("cookie-banner");
+            if (banner) banner.style.display = "none";
+
+            // If using GA4 Consent Mode:
+            // if (typeof gtag === "function") {
+            //     gtag('consent', 'update', {'analytics_storage': 'granted'});
+            // }
+        });
+    });
+}
+
+// Decline button
+const declineBtn = document.getElementById("cookie-decline");
+if (declineBtn) {
+    declineBtn.addEventListener("click", () => {
+        // Optionally call a Flask route to store decline
+        fetch("/decline-cookies").then(() => {
+            const banner = document.getElementById("cookie-banner");
+            if (banner) banner.style.display = "none";
+
+            // If using GA4 Consent Mode:
+            // if (typeof gtag === "function") {
+            //     gtag('consent', 'update', {'analytics_storage': 'denied'});
+            // }
+        });
+    });
+}
+</script>
+
+</html>
