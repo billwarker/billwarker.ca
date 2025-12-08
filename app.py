@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, make_response
 import markdown
 import frontmatter
 import os
@@ -10,12 +10,17 @@ from datetime import datetime
 from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.extensions.fenced_code import FencedCodeExtension
 
+#########################
+# Variables
+#########################
 
 app = Flask(__name__)
-
-# Helper Functions
-
 POSTS_DIR = "posts"
+IS_LOCAL = os.environ.get("FLASK_ENV") == "development"
+
+#########################
+# Helper Functions
+#########################
 
 def load_posts():
     posts = []
@@ -82,8 +87,44 @@ def render_markdown(md_text):
         extensions=["fenced_code", "codehilite", "tables"]
     )
         
+#########################
+### Flask App Routes
+#########################
 
-# Flask App Routes
+@app.context_processor
+def inject_cookie_consent():
+    consent = request.cookies.get("cookie_consent", "no")
+    return {"cookie_consent": consent}
+
+@app.context_processor
+def inject_globals():
+    return {
+        'current_year': datetime.utcnow().year
+    }
+
+@app.route("/accept-cookies")
+def accept_cookies():
+    resp = make_response("OK")
+    resp.set_cookie(
+        "cookie_consent",
+        "yes",
+        max_age=60 * 60 * 24 * 365, # 1 Year
+        samesite="Lax",
+        secure=not IS_LOCAL
+    )
+    return resp
+
+@app.route("/decline-cookies")
+def decline_cookies():
+    resp = make_response("OK")
+    resp.set_cookie(
+        "cookie_consent",
+        "no",
+        max_age=60 * 60 * 24 * 365, # 1 Year
+        samesite="Lax",
+        secure=not IS_LOCAL
+    )
+    return resp
 
 
 @app.route("/")
@@ -173,6 +214,10 @@ def blog_by_year(year):
         active_year=year,
         active_month=None
     )
+
+@app.route("/projects")
+def projects():
+    return render_template("projects.html", title="Projects", hide_sidebar=True)
 
 
 if __name__ == "__main__":
